@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tplanner/v1")
+@CrossOrigin(origins = "*")
 public class ChatController {
 
     @Autowired
