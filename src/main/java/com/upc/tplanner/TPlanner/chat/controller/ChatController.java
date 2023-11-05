@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tplanner/v1")
+@RequestMapping("/api/v1")
 @CrossOrigin(origins = "*")
 public class ChatController {
 
@@ -38,7 +38,7 @@ public class ChatController {
     }
 
     @Transactional(readOnly = true)
-    @GetMapping(value = "/TouristId/chats/filterByTouristIdAndTouristProviderId")
+    @GetMapping(value = "/chats/filterByTouristIdAndTouristProviderId")
     public ResponseEntity<List<ChatResponse>> getChatsByTouristIdAndTouristProviderId(@RequestParam(value = "touristId") Long touristId,
                                                                                       @RequestParam(value = "touristProviderId") Long touristProviderId) {
         var chats = chatService.getChatsByTouristIdAndTouristProviderId(touristId, touristProviderId);
