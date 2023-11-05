@@ -37,9 +37,9 @@ public class ChatController {
     }
 
     @Transactional(readOnly = true)
-    @GetMapping(value = "/TouristId/{touristId}/TouristProviderId/{touristProviderId}/chats")
-    public ResponseEntity<List<ChatResponse>> getChatsByTouristIdAndTouristProviderId(@PathVariable(value = "touristId") Long touristId,
-                                                                                      @PathVariable(value = "touristProviderId") Long touristProviderId) {
+    @GetMapping(value = "/TouristId/chats/filterByTouristIdAndTouristProviderId")
+    public ResponseEntity<List<ChatResponse>> getChatsByTouristIdAndTouristProviderId(@RequestParam(value = "touristId") Long touristId,
+                                                                                      @RequestParam(value = "touristProviderId") Long touristProviderId) {
         var chats = chatService.getChatsByTouristIdAndTouristProviderId(touristId, touristProviderId);
         return new ResponseEntity<List<ChatResponse>>(ChatMapper.INSTANCE.chatsToChatsResponse(chats), HttpStatus.OK);
     }
