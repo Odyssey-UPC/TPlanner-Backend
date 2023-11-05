@@ -5,6 +5,7 @@ import com.upc.tplanner.TPlanner.user.model.User;
 import com.upc.tplanner.TPlanner.user.repository.TouristRepository;
 import com.upc.tplanner.TPlanner.user.service.TouristService;
 import com.upc.tplanner.TPlanner.user.service.UserService;
+import com.upc.tplanner.TPlanner.utils.exception.ResourceNotFoundException;
 import com.upc.tplanner.TPlanner.utils.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,16 @@ public class TouristServiceImpl implements TouristService {
     }
 
     @Override
+    public Tourist getTouristById(Long id) {
+        existsTouristById(id);
+        return touristRepository.findTouristById(id);
+    }
+
+    @Override
     public Tourist createTourist(User user, Tourist tourist) {
         validateTourist(tourist);
         var userCreated = userService.createUser(user, "tourist");
+        tourist.setId(userCreated.getId());
         tourist.setUser(userCreated);
         tourist.setHasPremium(false);
         tourist.setTravelPoints(0);
@@ -59,6 +67,12 @@ public class TouristServiceImpl implements TouristService {
         }
         if (!tourist.getGender().equals("F") && !tourist.getGender().equals("M")){
             throw new ValidationException("gender must be F (female) or M (male)");
+        }
+    }
+
+    private void existsTouristById(Long id) {
+        if (!touristRepository.existsTouristById(id)) {
+            throw new ResourceNotFoundException("Tourist not found with id: " + id);
         }
     }
 }
