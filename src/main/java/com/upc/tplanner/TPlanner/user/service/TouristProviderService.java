@@ -8,4 +8,5 @@ import java.util.List;
 public interface TouristProviderService {
     List<TouristProvider> getAllTouristProviders();
     TouristProvider createTouristProvider(User user, TouristProvider touristProvider);
+    TouristProvider getTouristProviderById(Long id);
 }

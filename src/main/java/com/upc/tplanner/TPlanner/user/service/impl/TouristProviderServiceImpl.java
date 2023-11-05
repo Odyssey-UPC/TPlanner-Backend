@@ -5,6 +5,7 @@ import com.upc.tplanner.TPlanner.user.model.User;
 import com.upc.tplanner.TPlanner.user.repository.TouristProviderRepository;
 import com.upc.tplanner.TPlanner.user.service.TouristProviderService;
 import com.upc.tplanner.TPlanner.user.service.UserService;
+import com.upc.tplanner.TPlanner.utils.exception.ResourceNotFoundException;
 import com.upc.tplanner.TPlanner.utils.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,20 @@ public class TouristProviderServiceImpl implements TouristProviderService {
         validateTouristProvider(touristProvider);
         var userCreated = userService.createUser(user, "tourist provider");
         touristProvider.setUser(userCreated);
+        touristProvider.setId(userCreated.getId());
         return touristProviderRepository.save(touristProvider);
+    }
+
+    @Override
+    public TouristProvider getTouristProviderById(Long id) {
+        existsTouristProviderById(id);
+        return touristProviderRepository.findTouristProviderById(id);
+    }
+
+    private void existsTouristProviderById(Long id) {
+        if (!touristProviderRepository.existsTouristProviderById(id)){
+            throw new ResourceNotFoundException("tourist provider not found with id: " + id);
+        }
     }
 
     private void validateTouristProvider(TouristProvider touristProvider) {

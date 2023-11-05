@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "tourists")
 public class Tourist {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "first_name", length = 30, nullable = false)

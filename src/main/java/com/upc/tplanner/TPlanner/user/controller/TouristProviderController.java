@@ -18,6 +18,13 @@ public class TouristProviderController {
     @Autowired
     TouristProviderService touristProviderService;
 
+    @GetMapping(value = "/touristProviders/{id}")
+    public ResponseEntity<TouristProviderResponse> getTouristProviderById(@PathVariable(value = "id") Long id){
+        var touristProvider = touristProviderService.getTouristProviderById(id);
+        var touristProviderResponse = TouristProviderMapper.INSTANCE.TouristProviderToTouristProviderResponse(touristProvider);
+        return new ResponseEntity<>(touristProviderResponse, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/touristProviders")
     public ResponseEntity<List<TouristProviderResponse>> getAllTouristProviders(){
         var touristProvidersResponse = TouristProviderMapper.INSTANCE.TouristProvidersToTouristProvidersResponse(touristProviderService.getAllTouristProviders());

@@ -25,6 +25,12 @@ public class TouristController {
         return new ResponseEntity<List<TouristResponse>>(touristsResponse, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/tourists/{id}")
+    public ResponseEntity<TouristResponse> getTouristById(@PathVariable("id") Long id){
+        var touristResponse = TouristMapper.INSTANCE.TouristToTouristResponse(touristService.getTouristById(id));
+        return new ResponseEntity<TouristResponse>(touristResponse, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/tourists")
     public ResponseEntity<TouristResponse> createTourist(@RequestBody TouristRequest touristRequest){
         var user = TouristMapper.INSTANCE.TouristRequestToUser(touristRequest);

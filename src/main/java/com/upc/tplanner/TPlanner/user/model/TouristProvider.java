@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "tourist_providers")
 public class TouristProvider {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "organization_name", length = 25, nullable = false)
