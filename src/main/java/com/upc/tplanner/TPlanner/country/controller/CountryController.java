@@ -52,9 +52,9 @@ public class CountryController {
 
     @Transactional
     @DeleteMapping("/countries/{id}")
-    public ResponseEntity<Void> deleteCountry(@PathVariable(value = "id") long countryId) {
+    public ResponseEntity<String> deleteCountry(@PathVariable(value = "id") long countryId) {
         countryService.deleteCountry(countryId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(String.format("Country with id %d was successfully deleted", countryId),HttpStatus.NO_CONTENT);
     }
 
 

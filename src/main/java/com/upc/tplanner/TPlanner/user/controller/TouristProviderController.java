@@ -28,14 +28,14 @@ public class TouristProviderController {
 
     @GetMapping(value = "/touristProviders")
     public ResponseEntity<List<TouristProviderResponse>> getAllTouristProviders(){
-        var touristProvidersResponse = TouristProviderMapper.INSTANCE.TouristProvidersToTouristProvidersResponse(touristProviderService.getAllTouristProviders());
+        var touristProvidersResponse = TouristProviderMapper.INSTANCE.touristProvidersToTouristProvidersResponse(touristProviderService.getAllTouristProviders());
         return new ResponseEntity<>(touristProvidersResponse, HttpStatus.OK);
     }
 
     @PostMapping(value = "/touristProviders")
     public ResponseEntity<TouristProviderResponse> createTouristProvider(@RequestBody TouristProviderRequest touristProviderRequest){
         var user = TouristProviderMapper.INSTANCE.TouristProviderRequestToUser(touristProviderRequest);
-        var touristProvider = TouristProviderMapper.INSTANCE.TouristProviderRequestToTouristProvider(touristProviderRequest);
+        var touristProvider = TouristProviderMapper.INSTANCE.touristProviderRequestToTouristProvider(touristProviderRequest);
         var touristProviderCreated = touristProviderService.createTouristProvider(user, touristProvider);
         var touristProviderResponse = TouristProviderMapper.INSTANCE.TouristProviderToTouristProviderResponse(touristProviderCreated);
         return new ResponseEntity<>(touristProviderResponse, HttpStatus.CREATED);
