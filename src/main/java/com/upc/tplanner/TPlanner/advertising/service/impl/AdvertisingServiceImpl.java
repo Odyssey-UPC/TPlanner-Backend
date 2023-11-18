@@ -4,6 +4,7 @@ import com.upc.tplanner.TPlanner.advertising.model.Advertising;
 import com.upc.tplanner.TPlanner.advertising.repository.AdvertisingRepository;
 import com.upc.tplanner.TPlanner.advertising.service.AdvertisingService;
 import com.upc.tplanner.TPlanner.user.repository.TouristProviderRepository;
+import com.upc.tplanner.TPlanner.utils.RandomSelection;
 import com.upc.tplanner.TPlanner.utils.exception.ResourceNotFoundException;
 import com.upc.tplanner.TPlanner.utils.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,12 @@ public class AdvertisingServiceImpl implements AdvertisingService {
     @Override
     public List<Advertising> getAllAdvertisements() {
         return advertisingRepository.findAll();
+    }
+
+    @Override
+    public Advertising getRandomAdvertising() {
+        var advertisements = advertisingRepository.findAll();
+        return RandomSelection.getRandomAdvertising(advertisements);
     }
 
     @Override

@@ -21,6 +21,14 @@ public class AdvertisingController {
     AdvertisingService advertisingService;
 
     @Transactional(readOnly = true)
+    @GetMapping("/advertisements/selectRandom")
+    public ResponseEntity<AdvertisingResponse> selectRandomAdvertisement() {
+        var advertisement = advertisingService.getRandomAdvertising();
+        return new ResponseEntity<>(AdvertisingMapper.INSTANCE.advertisingToAdvertisingResponse(advertisement), HttpStatus.OK);
+    }
+
+
+    @Transactional(readOnly = true)
     @GetMapping("/advertisements")
     public ResponseEntity<List<AdvertisingResponse>> getAllAdvertisements() {
         var advertisementsResponse = AdvertisingMapper.INSTANCE.advertisementsResponseToAdvertisementsResponseResponse(advertisingService.getAllAdvertisements());
