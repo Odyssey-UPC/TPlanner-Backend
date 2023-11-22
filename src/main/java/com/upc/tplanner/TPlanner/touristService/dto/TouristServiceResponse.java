@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class TouristServiceResponse {
@@ -31,4 +32,6 @@ public class TouristServiceResponse {
     private String content;
 
     private TouristProvider touristProvider;
+
+    private List<String> images;
 }
