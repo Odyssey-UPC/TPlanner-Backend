@@ -58,6 +58,7 @@ public class TouristServiceServiceImpl implements TouristServiceService {
         touristService.setCapacity(touristServiceDetails.getCapacity());
         touristService.setContent(touristServiceDetails.getContent());
         touristService.setPrice(touristServiceDetails.getPrice());
+        touristService.setImages(touristServiceDetails.getImages());
         return touristServiceRepository.save(touristService);
     }
 
@@ -106,6 +107,9 @@ public class TouristServiceServiceImpl implements TouristServiceService {
         }
         if (touristService.getPrice() <= 0) {
             throw new ValidationException("Tourist Service cost must be greater than 0");
+        }
+        if (touristService.getImages() == null || touristService.getImages().isEmpty()) {
+            throw new ValidationException("Tourist Service images are required");
         }
     }
 

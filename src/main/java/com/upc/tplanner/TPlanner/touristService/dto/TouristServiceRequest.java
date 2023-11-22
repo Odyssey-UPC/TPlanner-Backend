@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class TouristServiceRequest {
@@ -15,4 +16,5 @@ public class TouristServiceRequest {
     private Double price;
     private Integer capacity;
     private String content;
+    private List<String> images;
 }

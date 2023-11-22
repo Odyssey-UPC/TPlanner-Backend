@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -53,4 +54,10 @@ public class TouristService {
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="tourist_provider_id", nullable=false, foreignKey = @ForeignKey(name = "FK_TOURIST_SERVICE_TOURIST_PROVIDER_ID"))
     private TouristProvider touristProvider;
+
+    @ElementCollection(targetClass=String.class, fetch = FetchType.EAGER)
+    @CollectionTable(name="images", joinColumns=@JoinColumn(name="tourist_service_id"))
+    @Column(name="image", nullable=false)
+    private List<String> images;
+
 }
