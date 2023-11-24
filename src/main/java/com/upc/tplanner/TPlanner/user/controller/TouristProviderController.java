@@ -7,6 +7,7 @@ import com.upc.tplanner.TPlanner.user.service.TouristProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,9 @@ public class TouristProviderController {
 
     @Autowired
     TouristProviderService touristProviderService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping(value = "/touristProviders/{id}")
     public ResponseEntity<TouristProviderResponse> getTouristProviderById(@PathVariable(value = "id") Long id){
@@ -35,6 +39,7 @@ public class TouristProviderController {
     @PostMapping(value = "/touristProviders")
     public ResponseEntity<TouristProviderResponse> createTouristProvider(@RequestBody TouristProviderRequest touristProviderRequest){
         var user = TouristProviderMapper.INSTANCE.TouristProviderRequestToUser(touristProviderRequest);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         var touristProvider = TouristProviderMapper.INSTANCE.touristProviderRequestToTouristProvider(touristProviderRequest);
         var touristProviderCreated = touristProviderService.createTouristProvider(user, touristProvider);
         var touristProviderResponse = TouristProviderMapper.INSTANCE.TouristProviderToTouristProviderResponse(touristProviderCreated);

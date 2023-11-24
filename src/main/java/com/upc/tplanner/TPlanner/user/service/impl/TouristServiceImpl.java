@@ -8,6 +8,7 @@ import com.upc.tplanner.TPlanner.user.service.UserService;
 import com.upc.tplanner.TPlanner.utils.exception.ResourceNotFoundException;
 import com.upc.tplanner.TPlanner.utils.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
