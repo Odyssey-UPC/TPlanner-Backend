@@ -29,7 +29,7 @@ public class TouristProviderServiceImpl implements TouristProviderService {
     @Override
     public TouristProvider createTouristProvider(User user, TouristProvider touristProvider) {
         validateTouristProvider(touristProvider);
-        var userCreated = userService.createUser(user, "tourist provider");
+        var userCreated = userService.createUser(user, "PROVIDER");
         touristProvider.setUser(userCreated);
         touristProvider.setId(userCreated.getId());
         return touristProviderRepository.save(touristProvider);
