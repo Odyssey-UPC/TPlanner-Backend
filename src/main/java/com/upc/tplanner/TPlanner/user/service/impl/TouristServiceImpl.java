@@ -35,7 +35,7 @@ public class TouristServiceImpl implements TouristService {
     @Override
     public Tourist createTourist(User user, Tourist tourist) {
         validateTourist(tourist);
-        var userCreated = userService.createUser(user, "tourist");
+        var userCreated = userService.createUser(user, "TOURIST");
         tourist.setId(userCreated.getId());
         tourist.setUser(userCreated);
         tourist.setHasPremium(false);
