@@ -47,9 +47,6 @@ public class UserServiceImpl implements UserService {
         if (user.getPassword() == null || user.getPassword().isEmpty()){
             throw new ValidationException("password is required");
         }
-        if (user.getPassword().length() > 30){
-            throw new ValidationException("password must not exceed 30 characters");
-        }
         if (user.getProfileLink() == null || user.getProfileLink().isEmpty()){
             throw new ValidationException("profile link is required");
         }

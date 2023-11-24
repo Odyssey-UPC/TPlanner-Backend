@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -24,7 +25,9 @@ public class TravelItineraryServiceImpl implements TravelItineraryService {
 
     @Override
     public List<TravelItinerary> getAllTravelItineraries() {
-        return travelItineraryRepository.findAll();
+        var travelItineraries = travelItineraryRepository.findAll();
+        travelItineraries.forEach(travelItinerary -> travelItinerary.getTravelServices().sort(Comparator.comparing(TouristService::getServiceDate)));
+        return travelItineraries;
     }
 
     @Override
@@ -41,7 +44,9 @@ public class TravelItineraryServiceImpl implements TravelItineraryService {
     @Override
     public TravelItinerary getTravelItineraryById(Long id) {
         existTravelItineraryById(id);
-        return travelItineraryRepository.findById(id).get();
+        var travelItinerary = travelItineraryRepository.findById(id).get();
+        travelItinerary.getTravelServices().sort(Comparator.comparing(TouristService::getServiceDate));
+        return travelItinerary;
     }
 
     @Override

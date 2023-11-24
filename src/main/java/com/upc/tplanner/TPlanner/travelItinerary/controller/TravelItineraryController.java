@@ -8,6 +8,7 @@ import com.upc.tplanner.TPlanner.travelItinerary.service.TravelItineraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class TravelItineraryController {
     TravelItineraryService travelItineraryService;
 
     @Transactional(readOnly = true)
+    @PreAuthorize("hasAnyRole('TOURIST', 'ADMIN')")
     @GetMapping("/travelItineraries")
     public ResponseEntity<List<TravelItineraryResponse>> getAllTravelItineraries(){
         var travelItineraries = travelItineraryService.getAllTravelItineraries();
@@ -29,6 +31,7 @@ public class TravelItineraryController {
     }
 
     @Transactional(readOnly = true)
+    @PreAuthorize("hasAnyRole('TOURIST', 'ADMIN')")
     @GetMapping("/travelItineraries/{id}")
     public ResponseEntity<TravelItineraryResponse> getTravelItineraryById(@PathVariable("id") Long id){
         var travelItinerary = travelItineraryService.getTravelItineraryById(id);
@@ -36,6 +39,7 @@ public class TravelItineraryController {
     }
 
     @Transactional
+    @PreAuthorize("hasAnyRole('TOURIST', 'ADMIN')")
     @PostMapping("/travelItineraries")
     public ResponseEntity<TravelItineraryResponse> createTravelItinerary(@RequestBody TravelItineraryRequest travelItineraryRequest){
         var travelItinerary = TravelItineraryMapper.INSTANCE.travelItineraryRequestToTravelItinerary(travelItineraryRequest);
@@ -44,6 +48,7 @@ public class TravelItineraryController {
     }
 
     @Transactional
+    @PreAuthorize("hasAnyRole('TOURIST', 'ADMIN')")
     @PutMapping("/travelItineraries/{id}")
     public ResponseEntity<TravelItineraryResponse> updateTravelItinerary(@PathVariable("id") Long id, @RequestBody TravelItineraryRequest travelItineraryRequest){
         var travelItinerary = TravelItineraryMapper.INSTANCE.travelItineraryRequestToTravelItinerary(travelItineraryRequest);
@@ -52,6 +57,7 @@ public class TravelItineraryController {
     }
 
     @Transactional
+    @PreAuthorize("hasAnyRole('TOURIST', 'ADMIN')")
     @DeleteMapping("/travelItineraries/{id}")
     public ResponseEntity<Void> deleteTravelItinerary(@PathVariable("id") Long id){
         travelItineraryService.deleteTravelItinerary(id);
