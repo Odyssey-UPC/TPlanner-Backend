@@ -1,8 +1,8 @@
 package com.upc.tplanner.TPlanner.touristService.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.upc.tplanner.TPlanner.city.model.City;
-import com.upc.tplanner.TPlanner.user.model.TouristProvider;
-import jakarta.persistence.*;
+import com.upc.tplanner.TPlanner.user.dto.TouristProviderResponse;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -31,7 +31,8 @@ public class TouristServiceResponse {
 
     private String content;
 
-    private TouristProvider touristProvider;
+    @JsonProperty("touristProvider")
+    private TouristProviderResponse touristProviderResponse;
 
     private List<String> images;
 }
