@@ -87,7 +87,7 @@ public class TouristServiceServiceImpl implements TouristServiceService {
         if (touristService.getServiceDeadline() == null) {
             throw new ValidationException("Tourist Service deadline is required");
         }
-        if (touristService.getServiceDate().isBefore(touristService.getServiceDeadline())) {
+        if (touristService.getServiceDate().isAfter(touristService.getServiceDeadline())) {
             throw new ValidationException("Tourist Service date must be before deadline");
         }
         if (touristService.getServiceDate().isBefore(java.time.LocalDateTime.now())) {
