@@ -4,6 +4,7 @@ import com.upc.tplanner.TPlanner.user.model.User;
 import com.upc.tplanner.TPlanner.user.repository.UserRepository;
 import com.upc.tplanner.TPlanner.user.service.UserService;
 
+import com.upc.tplanner.TPlanner.utils.exception.ResourceNotFoundException;
 import com.upc.tplanner.TPlanner.utils.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,26 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public Long getUserIdByUsername(String username) {
+        return userRepository.findByUsername(username).get().getId();
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        existsUserById(id);
+        return userRepository.findById(id).get();
+    }
+
+    private void existsUserById(Long id) {
+        if (!userRepository.existsById(id)){
+            throw new ValidationException("user not found");
+        }
+    }
+
     private void existsUserByUsername(User user) {
         if (userRepository.existsUserByUsername(user.getUsername())){
-            throw new ValidationException("username already exists");
+            throw new ResourceNotFoundException("username already exists");
         }
     }
 
